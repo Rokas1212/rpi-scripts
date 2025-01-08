@@ -9,6 +9,13 @@ Creator: Rokas Čiuplinskas
 import os
 import shutil
 import argparse
+import sys
+
+def confirmation_prompt(): 
+    confirmation = input("(y) To Continue, any other key to quit: ")
+    if confirmation.lower() != "y":
+        print("Aborting")
+        sys.exit(0)
 
 def parse_arguments():
         parser = argparse.ArgumentParser(description="Organize files in a directory.")
@@ -53,10 +60,7 @@ def check_existance(item_path, target_dir):
     return os.path.exists(target_path)
 
 def move_files(categorized_files, source):
-    confirmation = input("Press Enter To Continue...")
-    if confirmation != "":
-        print("Aborting")
-        return
+    confirmation_prompt()
     try:
         for category, items in categorized_files.items():
             target_dir = os.path.join(source,category)
